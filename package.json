@@ -2,10 +2,23 @@
   "name": "ws-app-back",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "scripts": {
+    "start-dev": "nodemon --inspect dist/app.js",
+    "watch-dev": "tsc -w",
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@types/node": "^12.0.10",
+    "express": "^4.21.1",
+    "nodemon": "^1.19.1",
+    "typescript": "^3.5.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0"
+  }
 }
