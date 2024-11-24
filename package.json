@@ -5,6 +5,7 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "type": "module",
   "scripts": {
     "start-dev": "nodemon --inspect dist/app.js",
     "watch-dev": "tsc -w",
