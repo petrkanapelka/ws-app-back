@@ -61,6 +61,16 @@ io.on('connection', (socketChannel) => {
         console.log(message);
     });
 
+    socketChannel.on('user-typed', () => {
+        const user: User = users.get(socketChannel);
+        io.emit('user-typing', user);
+    });
+
+    socketChannel.on('user-stop-typed', () => {
+        const user: User = users.get(socketChannel);
+        io.emit('user-stop-typing', user);
+    });
+
     socketChannel.emit('init-messages-published', messages);
 
     socketChannel.on('disconnect', () => {
