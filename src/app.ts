@@ -1,7 +1,7 @@
 import express from 'express';
 import { createServer } from 'node:http';
 import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
 import { Server } from 'socket.io';
 import { v1 } from 'uuid';
 
@@ -18,7 +18,7 @@ type Message = {
 
 const users = new Map();
 
-const messages: Message[] = [{ message: 'Hello, Victor', id: '23f2332', user: { id: v1(), name: 'Robert' } }];
+const messages: Message[] = [{ message: 'Welcome to RapidChat', id: '666', user: { id: v1(), name: 'RapidChat' } }];
 
 const app = express();
 const server = createServer(app);
@@ -37,48 +37,87 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socketChannel) => {
-    console.log('a user connected');
+    console.log('A user connected');
 
     users.set(socketChannel, { id: v1(), name: 'anonym' });
 
     socketChannel.on('client-name-sent', (name: string) => {
+        if (typeof name !== 'string' || name.trim().length < 2) {
+            socketChannel.emit('error-message', 'Invalid name. Name must be at least 2 characters long.');
+            return;
+        }
+        if (name.trim().length > 20) {
+            socketChannel.emit('error-message', 'Invalid name. Name cannot be longer than 20 characters.');
+            return;
+        }
+
         const user: User = users.get(socketChannel);
-        user.name = name;
+        user.name = name.trim();
     });
 
     socketChannel.on('client-message-sent', (message: string) => {
+        if (typeof message !== 'string' || message.trim().length === 0) {
+            socketChannel.emit('error-message', 'Invalid message. Message cannot be empty.');
+            return;
+        }
+        if (message.trim().length > 100) {
+            socketChannel.emit('error-message', 'Invalid message. Message cannot be longer than 100 characters.');
+            return;
+        }
+
         const user: User = users.get(socketChannel);
 
-        let messageItem: Message = {
-            message,
-            id: v1(),
-            user,
-        };
-        messages.push(messageItem);
+        if (!user) {
+            socketChannel.emit('error-message', 'User not found.');
+            return;
+        }
 
-        io.emit('new-message-sent', messageItem);
+        try {
+            const messageItem: Message = {
+                message: message.trim(),
+                id: v1(),
+                user,
+            };
 
-        console.log(message);
+            messages.push(messageItem);
+            io.emit('new-message-sent', messageItem);
+            console.log(`Message from ${user.name}: ${message}`);
+        } catch (error) {
+            console.error('Error processing message:', error);
+            socketChannel.emit('error-message', 'Failed to send the message.');
+        }
     });
 
     socketChannel.on('user-typed', () => {
         const user: User = users.get(socketChannel);
-        io.emit('user-typing', user);
+        if (user) {
+            io.emit('user-typing', user);
+        }
     });
 
     socketChannel.on('user-stop-typed', () => {
         const user: User = users.get(socketChannel);
-        io.emit('user-stop-typing', user);
+        if (user) {
+            io.emit('user-stop-typing', user);
+        }
     });
 
     socketChannel.emit('init-messages-published', messages);
 
     socketChannel.on('disconnect', () => {
-        console.log('user disconnected');
+        console.log('User disconnected');
         users.delete(socketChannel);
     });
 });
 
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught exception:', err);
+});
+
+process.on('unhandledRejection', (reason) => {
+    console.error('Unhandled rejection:', reason);
+});
+
 server.listen(3010, () => {
-    console.log('server running at http://localhost:3010');
+    console.log('Server running at http://localhost:3010');
 });
