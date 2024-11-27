@@ -16,6 +16,8 @@ type Message = {
     user: User;
 };
 
+const PORT = process.env.PORT || 3010;
+
 const users = new Map();
 
 const messages: Message[] = [{ message: 'Welcome to RapidChat', id: '666', user: { id: v1(), name: 'RapidChat' } }];
@@ -25,7 +27,7 @@ const server = createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: 'http://localhost:3000',
+        origin: process.env.CLIENT_URL || 'http://localhost:3000',
         methods: ['GET', 'POST'],
     },
 });
@@ -118,6 +120,6 @@ process.on('unhandledRejection', (reason) => {
     console.error('Unhandled rejection:', reason);
 });
 
-server.listen(3010, () => {
-    console.log('Server running at http://localhost:3010');
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
