@@ -1,0 +1,492 @@
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"error","message":"Uncaught exception: uuidv1 is not defined","stack":"ReferenceError: uuidv1 is not defined\n    at Namespace.<anonymous> (file:///D:/FRONTEND/IT-KAMASUTRA/Sprint_6/websocket/ws-app-back/dist/index.js:97:36)\n    at Namespace.emit (node:events:518:28)\n    at Namespace.emitReserved (D:\\FRONTEND\\IT-KAMASUTRA\\Sprint_6\\websocket\\ws-app-back\\node_modules\\socket.io\\dist\\typed-events.js:56:22)\n    at Namespace._doConnect (D:\\FRONTEND\\IT-KAMASUTRA\\Sprint_6\\websocket\\ws-app-back\\node_modules\\socket.io\\dist\\namespace.js:276:14)\n    at D:\\FRONTEND\\IT-KAMASUTRA\\Sprint_6\\websocket\\ws-app-back\\node_modules\\socket.io\\dist\\namespace.js:238:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"error","message":"Uncaught exception: uuidv1 is not defined","stack":"ReferenceError: uuidv1 is not defined\n    at Namespace.<anonymous> (file:///D:/FRONTEND/IT-KAMASUTRA/Sprint_6/websocket/ws-app-back/dist/index.js:97:36)\n    at Namespace.emit (node:events:518:28)\n    at Namespace.emitReserved (D:\\FRONTEND\\IT-KAMASUTRA\\Sprint_6\\websocket\\ws-app-back\\node_modules\\socket.io\\dist\\typed-events.js:56:22)\n    at Namespace._doConnect (D:\\FRONTEND\\IT-KAMASUTRA\\Sprint_6\\websocket\\ws-app-back\\node_modules\\socket.io\\dist\\namespace.js:276:14)\n    at D:\\FRONTEND\\IT-KAMASUTRA\\Sprint_6\\websocket\\ws-app-back\\node_modules\\socket.io\\dist\\namespace.js:238:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Message from anonym: dfddsfdfsd"}
+{"level":"info","message":"Message from anonym: vfbbxcbxcbxc"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Message from anonym: wqwewqqweq"}
+{"level":"info","message":"Message from anonym: erwerwer"}
+{"level":"info","message":"Message from anonym: rewewrwer"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Message from anonym: dsdsdsds"}
+{"level":"info","message":"Message from anonym: sddsd"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Message from anonym: dsdsd"}
+{"level":"info","message":"Message from anonym: dsds"}
+{"level":"info","message":"Message from anonym: sdsds"}
+{"level":"info","message":"Message from anonym: dsdsd"}
+{"level":"info","message":"Message from anonym: dsdsd"}
+{"level":"info","message":"Message from anonym: dsdsd"}
+{"level":"info","message":"Message from anonym: dsdsd"}
+{"level":"info","message":"Message from anonym: dsds"}
+{"level":"info","message":"Message from anonym: dsdsd"}
+{"level":"info","message":"Message from anonym: dsdsd"}
+{"level":"info","message":"Message from anonym: dsdsd"}
+{"level":"info","message":"Message from anonym: dsds"}
+{"level":"info","message":"Message from anonym: sd"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Message from anonym: dsdsdsds"}
+{"level":"info","message":"Message from anonym: ttt"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Message from anonym: sdasdas"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"User registered: parenzlo@gmail.com"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"User registered: parenzlo@gmail.com"}
+{"level":"info","message":"User registered: parenzlo3@gmail.com"}
+{"level":"info","message":"User logged in: parenzlo3@gmail.com"}
+{"level":"info","message":"User logged in: parenzlo3@gmail.com"}
+{"level":"info","message":"User registered: parenzlo4@gmail.com"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"User registered: parenzlo55@gmail.com"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"User registered: parenzloererer@gmail.com"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"User registered: parenzlo22@gmail.com"}
+{"level":"info","message":"User logged in: parenzlo22@gmail.com"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"User logged in: parenzlo22@gmail.com"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Message from anonym: dsdsdsadsadsadasd"}
+{"level":"info","message":"Message from anonym: dsadsadasd"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"User logged in: parenzlo22@gmail.com"}
+{"level":"info","message":"User logged in: parenzlo22@gmail.com"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Message from anonym: dsdasdasd"}
+{"level":"info","message":"Message from anonym: dsdsads"}
+{"level":"info","message":"Message from anonym: dsdsdsdasd"}
+{"level":"info","message":"Message from anonym: ddsdsdsdsd"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Message from anonym: jbkbkjbkjbk"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"User registered: parenzlo33@gmail.com"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"User registered: parenzlo333@gmail.com"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"User registered: parenzlo@gmail.com"}
+{"level":"info","message":"User registered: parenzlo444@gmail.com"}
+{"level":"info","message":"User registered: parenzlo4444@gmail.com"}
+{"level":"info","message":"User registered: parenzlo44445@gmail.com"}
+{"level":"info","message":"User registered: vales@mail.ru"}
+{"level":"info","message":"User logged in: vales@mail.ru"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Message from anonym: fdsffdfdsfsdf"}
+{"level":"info","message":"Message from anonym: dfsdfdsfdsfsdf"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"User logged in: vales@mail.ru"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"User logged in: vales@mail.ru"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"User logged in: vales@mail.ru"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"User logged in: vales@mail.ru"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"User registered: test@mail.ru"}
+{"level":"info","message":"User logged in: test@mail.ru"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Message from anonym: xczxczczxczxzx"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"User logged in: test@mail.ru"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"A user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"user connected"}
+{"level":"info","message":"Server running on port 3010"}
+{"level":"info","message":"user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"user connected"}
+{"level":"info","message":"User disconnected"}
+{"level":"info","message":"user connected"}
