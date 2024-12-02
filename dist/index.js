@@ -84,89 +84,178 @@ app.post('/login', async (req, res) => {
     const token = jwt.sign({ id: user.id, name: user.name }, JWT_SECRET, { expiresIn: '1h' });
     logger.info(`User logged in: ${email}`);
     res.json({ token, name: user.name });
-});
-io.on('connection', (socketChannel) => {
-    console.log('user connected');
-    logger.info('user connected');
-    users.set(socketChannel, { id: v1(), name: 'anonym' });
-    socketChannel.on('client-auth', (token) => {
-        jwt.verify(token, JWT_SECRET, (err, user) => {
-            if (err) {
-                socketChannel.emit('error-message', 'Authentication failed');
-                logger.warn('Authentication failed');
+    io.on('connection', (socketChannel) => {
+        console.log('user connected');
+        logger.info('user connected');
+        users.set(socketChannel, { id: v1(), name: user.name, email: user.email });
+        socketChannel.on('client-auth', (token) => {
+            jwt.verify(token, JWT_SECRET, (err, user) => {
+                if (err) {
+                    socketChannel.emit('error-message', 'Authentication failed');
+                    logger.warn('Authentication failed');
+                    return;
+                }
+                const existingUser = users.get(socketChannel);
+                if (existingUser) {
+                    existingUser.id = user.id;
+                    existingUser.name = user.name;
+                    logger.info(`User authenticated: ${existingUser.name}`);
+                }
+            });
+        });
+        socketChannel.on('client-message-sent', (message) => {
+            if (typeof message !== 'string' || message.trim().length === 0) {
+                socketChannel.emit('error-message', 'Invalid message. Message cannot be empty.');
                 return;
             }
-            const existingUser = users.get(socketChannel);
-            if (existingUser) {
-                existingUser.id = user.id;
-                existingUser.name = user.name;
-                logger.info(`User authenticated: ${existingUser.name}`);
+            if (message.trim().length > 100) {
+                socketChannel.emit('error-message', 'Invalid message. Message cannot be longer than 100 characters.');
+                return;
+            }
+            const user = users.get(socketChannel);
+            if (!user) {
+                socketChannel.emit('error-message', 'User not found.');
+                return;
+            }
+            const messageItem = {
+                message: message.trim(),
+                id: v1(),
+                user,
+            };
+            messages.push(messageItem);
+            if (messages.length > 100) {
+                messages.shift();
+            }
+            io.emit('new-message-sent', messageItem);
+            logger.info(`Message from ${user.name}: ${message}`);
+        });
+        socketChannel.on('client-name-sent', (name) => {
+            if (typeof name !== 'string' || name.trim().length === 0) {
+                socketChannel.emit('error-message', 'Invalid name. Name cannot be empty.');
+                return;
+            }
+            if (name.trim().length > 10) {
+                socketChannel.emit('error-message', 'Invalid name. Name cannot be longer than 10 characters.');
+                return;
+            }
+            const user = users.get(socketChannel);
+            const registerUser = registeredUsers.get(user?.email);
+            if (!user) {
+                socketChannel.emit('error-message', 'User not found.');
+                return;
+            }
+            user.name = name;
+            if (registerUser) {
+                registerUser.name = name;
+            }
+            io.emit('client-name-sent', name);
+            logger.info(`New name ${user.name}: ${name}`);
+        });
+        socketChannel.on('user-typed', () => {
+            const user = users.get(socketChannel);
+            if (user) {
+                io.emit('user-typing', user);
             }
         });
-    });
-    socketChannel.on('client-message-sent', (message) => {
-        if (typeof message !== 'string' || message.trim().length === 0) {
-            socketChannel.emit('error-message', 'Invalid message. Message cannot be empty.');
-            return;
-        }
-        if (message.trim().length > 100) {
-            socketChannel.emit('error-message', 'Invalid message. Message cannot be longer than 100 characters.');
-            return;
-        }
-        const user = users.get(socketChannel);
-        if (!user) {
-            socketChannel.emit('error-message', 'User not found.');
-            return;
-        }
-        const messageItem = {
-            message: message.trim(),
-            id: v1(),
-            user,
-        };
-        messages.push(messageItem);
-        if (messages.length > 100) {
-            messages.shift();
-        }
-        io.emit('new-message-sent', messageItem);
-        logger.info(`Message from ${user.name}: ${message}`);
-    });
-    socketChannel.on('client-name-sent', (name) => {
-        if (typeof name !== 'string' || name.trim().length === 0) {
-            socketChannel.emit('error-message', 'Invalid name. Name cannot be empty.');
-            return;
-        }
-        if (name.trim().length > 10) {
-            socketChannel.emit('error-message', 'Invalid name. Name cannot be longer than 10 characters.');
-            return;
-        }
-        const user = users.get(socketChannel);
-        if (!user) {
-            socketChannel.emit('error-message', 'User not found.');
-            return;
-        }
-        user.name = name;
-        io.emit('client-name-sent', name);
-        logger.info(`New name ${user.name}: ${name}`);
-    });
-    socketChannel.on('user-typed', () => {
-        const user = users.get(socketChannel);
-        if (user) {
-            io.emit('user-typing', user);
-        }
-    });
-    socketChannel.on('user-stop-typed', () => {
-        const user = users.get(socketChannel);
-        if (user) {
-            io.emit('user-stop-typing', user);
-        }
-    });
-    socketChannel.emit('init-messages-published', messages);
-    socketChannel.on('disconnect', () => {
-        console.log('User disconnected');
-        logger.info('User disconnected');
-        users.delete(socketChannel);
+        socketChannel.on('user-stop-typed', () => {
+            const user = users.get(socketChannel);
+            if (user) {
+                io.emit('user-stop-typing', user);
+            }
+        });
+        socketChannel.emit('init-messages-published', messages);
+        socketChannel.on('disconnect', () => {
+            console.log('User disconnected');
+            logger.info('User disconnected');
+            users.delete(socketChannel);
+        });
     });
 });
+// app.get('/profile', authenticateToken, (req: AuthenticatedRequest, res: Response): void => {
+//     res.json({ user: req.user });
+// });
+// io.on('connection', (socketChannel: Socket) => {
+//     console.log('user connected');
+//     logger.info('user connected');
+//     users.set(socketChannel, { id: v1(), name: 'anonym' });
+//     socketChannel.on('client-auth', (token: string) => {
+//         jwt.verify(token, JWT_SECRET, (err, user) => {
+//             if (err) {
+//                 socketChannel.emit('error-message', 'Authentication failed');
+//                 logger.warn('Authentication failed');
+//                 return;
+//             }
+//             const existingUser = users.get(socketChannel);
+//             if (existingUser) {
+//                 existingUser.id = (user as User).id;
+//                 existingUser.name = (user as User).name;
+//                 logger.info(`User authenticated: ${existingUser.name}`);
+//             }
+//         });
+//     });
+//     socketChannel.on('client-message-sent', (message: string) => {
+//         if (typeof message !== 'string' || message.trim().length === 0) {
+//             socketChannel.emit('error-message', 'Invalid message. Message cannot be empty.');
+//             return;
+//         }
+//         if (message.trim().length > 100) {
+//             socketChannel.emit('error-message', 'Invalid message. Message cannot be longer than 100 characters.');
+//             return;
+//         }
+//         const user = users.get(socketChannel);
+//         if (!user) {
+//             socketChannel.emit('error-message', 'User not found.');
+//             return;
+//         }
+//         const messageItem: Message = {
+//             message: message.trim(),
+//             id: v1(),
+//             user,
+//         };
+//         messages.push(messageItem);
+//         if (messages.length > 100) {
+//             messages.shift();
+//         }
+//         io.emit('new-message-sent', messageItem);
+//         logger.info(`Message from ${user.name}: ${message}`);
+//     });
+//     socketChannel.on('client-name-sent', (name: string) => {
+//         if (typeof name !== 'string' || name.trim().length === 0) {
+//             socketChannel.emit('error-message', 'Invalid name. Name cannot be empty.');
+//             return;
+//         }
+//         if (name.trim().length > 10) {
+//             socketChannel.emit('error-message', 'Invalid name. Name cannot be longer than 10 characters.');
+//             return;
+//         }
+//         const user = users.get(socketChannel);
+//         if (!user) {
+//             socketChannel.emit('error-message', 'User not found.');
+//             return;
+//         }
+//         user.name = name;
+//         io.emit('client-name-sent', name);
+//         logger.info(`New name ${user.name}: ${name}`);
+//     });
+//     socketChannel.on('user-typed', () => {
+//         const user = users.get(socketChannel);
+//         if (user) {
+//             io.emit('user-typing', user);
+//         }
+//     });
+//     socketChannel.on('user-stop-typed', () => {
+//         const user = users.get(socketChannel);
+//         if (user) {
+//             io.emit('user-stop-typing', user);
+//         }
+//     });
+//     socketChannel.emit('init-messages-published', messages);
+//     socketChannel.on('disconnect', () => {
+//         console.log('User disconnected');
+//         logger.info('User disconnected');
+//         users.delete(socketChannel);
+//     });
+// });
 process.on('uncaughtException', (err) => {
     logger.error('Uncaught exception:', err);
 });
