@@ -1,7 +1,5 @@
 import express from 'express';
-import { createServer } from 'node:http';
-import { fileURLToPath } from 'node:url';
-import { dirname } from 'node:path';
+import { createServer } from 'http';
 import { Server } from 'socket.io';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
@@ -9,12 +7,13 @@ import cors from 'cors';
 import winston from 'winston';
 import { v1 } from 'uuid';
 const PORT = process.env.PORT || 3010;
-export const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
-export const SALT_ROUNDS = 10;
+const JWT_SECRET = 'your_secret_key';
+const SALT_ROUNDS = 10;
 const users = new Map();
-export const registeredUsers = new Map();
+const registeredUsers = new Map();
+const loginUsers = new Map();
 const messages = [{ message: 'Welcome to RapidChat', id: '666', user: { id: v1(), name: 'RapidChat' } }];
-export const app = express();
+const app = express();
 app.use(express.json());
 app.use(cors({
     origin: '*',
@@ -27,37 +26,18 @@ const io = new Server(server, {
         methods: ['GET', 'POST'],
     },
 });
-const __dirname = dirname(fileURLToPath(import.meta.url));
-export const logger = winston.createLogger({
+const logger = winston.createLogger({
     level: 'info',
     format: winston.format.json(),
     transports: [new winston.transports.Console(), new winston.transports.File({ filename: 'server.log' })],
 });
-export function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-    if (!token) {
-        res.status(401).send('Access Denied');
-        return;
-    }
-    jwt.verify(token, JWT_SECRET, (err, user) => {
-        if (err) {
-            res.status(403).send('Invalid Token');
-            return;
-        }
-        req.user = user;
-        next();
-    });
-}
 app.post('/register', async (req, res) => {
     const { email, password, name } = req.body;
     if (!email || !password || !name) {
         res.status(400).send({ messageError: 'Email, password, and name are required' });
-        return;
     }
     if (registeredUsers.has(email)) {
         res.status(400).send({ messageError: 'User already exists' });
-        return;
     }
     const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
     registeredUsers.set(email, {
@@ -79,183 +59,113 @@ app.post('/login', async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
     if (!isPasswordValid) {
         res.status(400).send({ messageError: 'Invalid email or password' });
-        return;
     }
     const token = jwt.sign({ id: user.id, name: user.name }, JWT_SECRET, { expiresIn: '1h' });
+    user.token = token;
+    loginUsers.set(token, user);
     logger.info(`User logged in: ${email}`);
     res.json({ token, name: user.name });
-    io.on('connection', (socketChannel) => {
-        console.log('user connected');
-        logger.info('user connected');
-        users.set(socketChannel, { id: v1(), name: user.name, email: user.email });
-        socketChannel.on('client-auth', (token) => {
-            jwt.verify(token, JWT_SECRET, (err, user) => {
-                if (err) {
-                    socketChannel.emit('error-message', 'Authentication failed');
-                    logger.warn('Authentication failed');
-                    return;
-                }
-                const existingUser = users.get(socketChannel);
-                if (existingUser) {
-                    existingUser.id = user.id;
-                    existingUser.name = user.name;
-                    logger.info(`User authenticated: ${existingUser.name}`);
-                }
-            });
-        });
-        socketChannel.on('client-message-sent', (message) => {
-            if (typeof message !== 'string' || message.trim().length === 0) {
-                socketChannel.emit('error-message', 'Invalid message. Message cannot be empty.');
-                return;
+});
+app.post('/profile', async (req, res) => {
+    const { token } = req.body;
+    const user = loginUsers.get(token);
+    if (user) {
+        res.json({ token, name: user.name });
+    }
+});
+app.post('/logout', async (req, res) => {
+    const { token } = req.body;
+    loginUsers.delete(token);
+});
+io.on('connection', (socket) => {
+    console.log('user connected');
+    logger.info('user connected');
+    socket.on('client-auth', (token) => {
+        console.log('Client-auth event received with token:', token);
+        const loginUser = loginUsers.get(token);
+        if (loginUser) {
+            console.log('User authenticated:', loginUser);
+            const user = { id: loginUser.id, name: loginUser.name, email: loginUser.email };
+            users.set(socket, user);
+            socket.emit('auth-success', 'Authentication successful');
+        }
+        else {
+            console.log('Invalid token:', token);
+            socket.emit('auth-error', 'Authentication failed');
+            socket.disconnect();
+        }
+    });
+    socket.on('client-message-sent', (message) => {
+        if (typeof message !== 'string' || message.trim().length === 0) {
+            socket.emit('error-message', 'Invalid message. Message cannot be empty.');
+            return;
+        }
+        if (message.trim().length > 100) {
+            socket.emit('error-message', 'Invalid message. Message cannot be longer than 100 characters.');
+            return;
+        }
+        const user = users.get(socket);
+        if (!user) {
+            socket.emit('error-message', 'User not found.');
+            return;
+        }
+        const messageItem = {
+            message: message.trim(),
+            id: v1(),
+            user,
+        };
+        messages.push(messageItem);
+        if (messages.length > 100) {
+            messages.shift();
+        }
+        io.emit('new-message-sent', messageItem);
+        logger.info(`Message from ${user.name}: ${message}`);
+    });
+    socket.on('client-name-sent', (name) => {
+        if (typeof name !== 'string' || name.trim().length === 0) {
+            socket.emit('error-message', 'Invalid name. Name cannot be empty.');
+            return;
+        }
+        if (name.trim().length > 10) {
+            socket.emit('error-message', 'Invalid name. Name cannot be longer than 10 characters.');
+            return;
+        }
+        const user = users.get(socket);
+        if (!user) {
+            socket.emit('error-message', 'User not found.');
+            return;
+        }
+        user.name = name;
+        const registeredUser = registeredUsers.get(user.email);
+        if (registeredUser) {
+            registeredUser.name = name;
+            const loginUser = loginUsers.get(registeredUser.token);
+            if (loginUser) {
+                loginUser.name = name;
             }
-            if (message.trim().length > 100) {
-                socketChannel.emit('error-message', 'Invalid message. Message cannot be longer than 100 characters.');
-                return;
-            }
-            const user = users.get(socketChannel);
-            if (!user) {
-                socketChannel.emit('error-message', 'User not found.');
-                return;
-            }
-            const messageItem = {
-                message: message.trim(),
-                id: v1(),
-                user,
-            };
-            messages.push(messageItem);
-            if (messages.length > 100) {
-                messages.shift();
-            }
-            io.emit('new-message-sent', messageItem);
-            logger.info(`Message from ${user.name}: ${message}`);
-        });
-        socketChannel.on('client-name-sent', (name) => {
-            if (typeof name !== 'string' || name.trim().length === 0) {
-                socketChannel.emit('error-message', 'Invalid name. Name cannot be empty.');
-                return;
-            }
-            if (name.trim().length > 10) {
-                socketChannel.emit('error-message', 'Invalid name. Name cannot be longer than 10 characters.');
-                return;
-            }
-            const user = users.get(socketChannel);
-            const registerUser = registeredUsers.get(user?.email);
-            if (!user) {
-                socketChannel.emit('error-message', 'User not found.');
-                return;
-            }
-            user.name = name;
-            if (registerUser) {
-                registerUser.name = name;
-            }
-            io.emit('client-name-sent', name);
-            logger.info(`New name ${user.name}: ${name}`);
-        });
-        socketChannel.on('user-typed', () => {
-            const user = users.get(socketChannel);
-            if (user) {
-                io.emit('user-typing', user);
-            }
-        });
-        socketChannel.on('user-stop-typed', () => {
-            const user = users.get(socketChannel);
-            if (user) {
-                io.emit('user-stop-typing', user);
-            }
-        });
-        socketChannel.emit('init-messages-published', messages);
-        socketChannel.on('disconnect', () => {
-            console.log('User disconnected');
-            logger.info('User disconnected');
-            users.delete(socketChannel);
-        });
+        }
+        io.emit('client-name-sent', name);
+        logger.info(`New name ${user.name}: ${name}`);
+    });
+    socket.on('user-typed', () => {
+        const user = users.get(socket);
+        if (user) {
+            io.emit('user-typing', user);
+        }
+    });
+    socket.on('user-stop-typed', () => {
+        const user = users.get(socket);
+        if (user) {
+            io.emit('user-stop-typing', user);
+        }
+    });
+    socket.emit('init-messages-published', messages);
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+        logger.info('User disconnected');
+        users.delete(socket);
     });
 });
-// app.get('/profile', authenticateToken, (req: AuthenticatedRequest, res: Response): void => {
-//     res.json({ user: req.user });
-// });
-// io.on('connection', (socketChannel: Socket) => {
-//     console.log('user connected');
-//     logger.info('user connected');
-//     users.set(socketChannel, { id: v1(), name: 'anonym' });
-//     socketChannel.on('client-auth', (token: string) => {
-//         jwt.verify(token, JWT_SECRET, (err, user) => {
-//             if (err) {
-//                 socketChannel.emit('error-message', 'Authentication failed');
-//                 logger.warn('Authentication failed');
-//                 return;
-//             }
-//             const existingUser = users.get(socketChannel);
-//             if (existingUser) {
-//                 existingUser.id = (user as User).id;
-//                 existingUser.name = (user as User).name;
-//                 logger.info(`User authenticated: ${existingUser.name}`);
-//             }
-//         });
-//     });
-//     socketChannel.on('client-message-sent', (message: string) => {
-//         if (typeof message !== 'string' || message.trim().length === 0) {
-//             socketChannel.emit('error-message', 'Invalid message. Message cannot be empty.');
-//             return;
-//         }
-//         if (message.trim().length > 100) {
-//             socketChannel.emit('error-message', 'Invalid message. Message cannot be longer than 100 characters.');
-//             return;
-//         }
-//         const user = users.get(socketChannel);
-//         if (!user) {
-//             socketChannel.emit('error-message', 'User not found.');
-//             return;
-//         }
-//         const messageItem: Message = {
-//             message: message.trim(),
-//             id: v1(),
-//             user,
-//         };
-//         messages.push(messageItem);
-//         if (messages.length > 100) {
-//             messages.shift();
-//         }
-//         io.emit('new-message-sent', messageItem);
-//         logger.info(`Message from ${user.name}: ${message}`);
-//     });
-//     socketChannel.on('client-name-sent', (name: string) => {
-//         if (typeof name !== 'string' || name.trim().length === 0) {
-//             socketChannel.emit('error-message', 'Invalid name. Name cannot be empty.');
-//             return;
-//         }
-//         if (name.trim().length > 10) {
-//             socketChannel.emit('error-message', 'Invalid name. Name cannot be longer than 10 characters.');
-//             return;
-//         }
-//         const user = users.get(socketChannel);
-//         if (!user) {
-//             socketChannel.emit('error-message', 'User not found.');
-//             return;
-//         }
-//         user.name = name;
-//         io.emit('client-name-sent', name);
-//         logger.info(`New name ${user.name}: ${name}`);
-//     });
-//     socketChannel.on('user-typed', () => {
-//         const user = users.get(socketChannel);
-//         if (user) {
-//             io.emit('user-typing', user);
-//         }
-//     });
-//     socketChannel.on('user-stop-typed', () => {
-//         const user = users.get(socketChannel);
-//         if (user) {
-//             io.emit('user-stop-typing', user);
-//         }
-//     });
-//     socketChannel.emit('init-messages-published', messages);
-//     socketChannel.on('disconnect', () => {
-//         console.log('User disconnected');
-//         logger.info('User disconnected');
-//         users.delete(socketChannel);
-//     });
-// });
 process.on('uncaughtException', (err) => {
     logger.error('Uncaught exception:', err);
 });
